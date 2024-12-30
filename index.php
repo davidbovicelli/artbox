@@ -13,18 +13,28 @@
 <body>
     <?php require_once(__DIR__ . '/header.php'); ?>
     <main>
-        <div class="galerie">
-            <?php foreach($oeuvres as $oeuvre): ?>
+    <div>
+        <?php 
+        foreach ($oeuvres as $oeuvre) {
+            $titre = htmlspecialchars($oeuvre['titre']);
+            $image = htmlspecialchars($oeuvre['image']);
+            $description = htmlspecialchars($oeuvre['description_courte']);
+            $id = htmlspecialchars($oeuvre['id']);
+
+            $content = <<<HTML
                 <article class="oeuvre">
-                    <a href="oeuvre.php?id=<?php echo $oeuvre['id']; ?>">
-                        <img src="<?php echo $oeuvre['image']; ?>" alt="<?php echo $oeuvre['titre']; ?>">
-                        <h2><?php echo $oeuvre['titre']; ?></h2>
-                        <p class="description"><?php echo $oeuvre['description']; ?></p>
+                    <a href="oeuvre.php?id=$id">
+                        <img src="$image" alt="$titre">
+                        <h2>$titre</h2>
+                        <p class="description_courte">$description</p>
                     </a>
-                </article>
-            <?php endforeach; ?>
-        </div>
-    </main>
+                </article>    
+            HTML;
+            echo $content;
+        }
+        ?>
+    </div>
+</main>
     <?php require_once(__DIR__ . '/footer.php'); ?>
 </body>
 
