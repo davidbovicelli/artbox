@@ -1,4 +1,6 @@
-<?php require_once(__DIR__ . '/oeuvres.php'); ?>
+<?php require_once(__DIR__ . '/oeuvres.php'); 
+$selected_id = isset($_GET['description_complete']) ? (int)$_GET['description_complete'] : null;
+?>
 <!doctype html>
 <html lang="fr">
 
@@ -14,24 +16,39 @@
     <?php require_once(__DIR__ . '/header.php'); ?>
     <main>
     <div>
-        <?php 
+        <?php   
+        $content = '';
         foreach ($oeuvres as $oeuvre) {
             $titre = htmlspecialchars($oeuvre['titre']);
             $image = htmlspecialchars($oeuvre['image']);
             $description = htmlspecialchars($oeuvre['description_courte']);
             $id = htmlspecialchars($oeuvre['id']);
+            $description_complete = htmlspecialchars($oeuvre['description_complete']);
 
-            $content = <<<HTML
+            $content .= <<<HTML
                 <article class="oeuvre">
-                    <a href="oeuvre.php?id=$id">
-                        <img src="$image" alt="$titre">
-                        <h2>$titre</h2>
-                        <p class="description_courte">$description</p>
-                    </a>
+                    <div class="oeuvre-content">
+                        <a href="oeuvre.php?id=$id">
+                            <img src="$image" alt="$titre">
+                            <h2>$titre</h2>
+                            <p class="description_courte">$description</p>
+                        </a>
+                    </div>
+                    <div class="description-section">
+                        <a href="oeuvres.php?description_complete=$description_complete" class="voir_plus">Voir plus</a>
+HTML;
+            if ($selected_id === $id) {
+                $content .= <<<HTML
+                        <p class="description_complete">$description_complete</p>
+HTML;
+            }
+            $content .= <<<HTML
+                    </div>
                 </article>    
             HTML;
-            echo $content;
         }
+
+        echo $content;
         ?>
     </div>
 </main>
