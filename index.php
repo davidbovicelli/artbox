@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . '/oeuvres.php'); 
-$selected_id = isset($_GET['description_complete']) ? (int)$_GET['description_complete'] : null;
+$selected_id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 ?>
 <!doctype html>
 <html lang="fr">
@@ -35,7 +35,7 @@ $selected_id = isset($_GET['description_complete']) ? (int)$_GET['description_co
                         </a>
                     </div>
                     <div class="description-section">
-                        <a href="oeuvres.php?description_complete=$description_complete" class="voir_plus">Voir plus</a>
+                        <a href="index.php?id=$id" </a>
 HTML;
             if ($selected_id === $id) {
                 $content .= <<<HTML
